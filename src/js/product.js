@@ -5,7 +5,6 @@ import { getParam } from "./utils.mjs";
 const dataSource = new ProductData("tents");
 
 const productId = getParam("product");
-console.log(productId); // null ❌ 2
 
 const product = new productDetails(productId, dataSource);
 
