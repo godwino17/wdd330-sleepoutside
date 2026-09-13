@@ -42,3 +42,32 @@ export function renderListWithTemplate(
   const htmlStrings = list.map(templateFn);
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
+
+export function alertMessage(message, scroll = true) {
+  // First make container...
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+
+  // Populate inner content with a close button
+  alert.innerHTML = `<p>${message}</p><span>X</span>`;
+
+  // Event listener
+  alert.addEventListener("click", (e) => {
+    if (e.target.tagName === "SPAN" || e.target.classList.contains("alert")) {
+      main.removeChild(alert);
+    }
+  });
+
+  const main = document.querySelector("main");
+  main.prepend(alert);
+
+  if (scroll) {
+    window.scrollTo(0,0);
+  }
+
+  setTimeout(() => {
+    if (main.contains(alert)) {
+      main.removeChild(alert);
+    }
+  }, 4000);
+}
