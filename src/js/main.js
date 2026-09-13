@@ -1,10 +1,13 @@
 import ProductData from "./ProductData.mjs";
-import productList from "./ProductList.mjs";
+import ProductList from "./ProductList.mjs";
+import Alert from "./Alert.mjs";
 
-const element = document.querySelector(".productDetail");
+const alert = new Alert();
+alert.init();
 
-const dataPath = new ProductData("tents");
 
-const proList = new productList("Tents", dataPath, element);
+const listElement = document.querySelector(".product-list");
+const dataSource = new ProductData("tents");
 
-proList.init();
+const productList = new ProductList("tents", dataSource, listElement);
+productList.init();
