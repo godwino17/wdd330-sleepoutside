@@ -22,22 +22,52 @@ export function setClick(selector, callback) {
   qs(selector).addEventListener("click", callback);
 }
 
-export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
- 
-  const htmlStrings = list.map(templateFn);
-  // if clear is true we need to clear out the contents of the parent.
-  if (clear) {
-    parentElement.innerHTML = "";
-  }
-  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
-}
-
+// helper to get a parameter from the URL string
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const product = urlParams.get(param);
+  return urlParams.get(param);
+}
 
-  console.log(product); // null ❌ 1
-  
-  return product;
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = "afterbegin",
+  clear = false
+) {
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  const htmlStrings = list.map(templateFn);
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+}
+
+export function alertMessage(message, scroll = true) {
+  // First make container...
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+
+  // Populate inner content with a close button
+  alert.innerHTML = `<p>${message}</p><span>X</span>`;
+
+  // Event listener
+  alert.addEventListener("click", (e) => {
+    if (e.target.tagName === "SPAN" || e.target.classList.contains("alert")) {
+      main.removeChild(alert);
+    }
+  });
+
+  const main = document.querySelector("main");
+  main.prepend(alert);
+
+  if (scroll) {
+    window.scrollTo(0,0);
+  }
+
+  setTimeout(() => {
+    if (main.contains(alert)) {
+      main.removeChild(alert);
+    }
+  }, 4000);
 }
