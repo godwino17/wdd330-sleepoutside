@@ -1,51 +1,39 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs"; 
-    
-    
-export default class productDetails {
-    
+import { getLocalStorage, setLocalStorage, alertMessage } from "./utils.mjs";
+
+
+export default class ProductDetails {
     constructor(productId, dataSource) {
-        this.productId = productId; // null ❌ 3
-        this.product = {};
-        this.dataSource = dataSource;
+    this.productId = productId;
+    this.product = {};
+    this.dataSource = dataSource;
+ }
+
+ async init() {
+    this.product = await this.dataSource.findProductById(this.productId);
+    this.renderProductDetails();
+
+    document.getElementById('addToCart').addEventListener('click', this.addProductToCart.bind(this));
+ }
+
+ addProductToCart(){
+    let cart = getLocalStorage('so-cart');
+    
+    if (!Array.isArray(cart)) {
+        cart = cart ? [cart]: [];
     }
 
-    async init() {
-        console.log("Current Product ID from URL:", this.productId); // null ❌ 4
-        // use the datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
-        this.product = await this.dataSource.findProductById(this.productId);
+    cart.push(this.product);
+    setLocalStorage('so-cart', cart);
+    alertMessage(`${this.product.Name} added to cart!`);
+ }
 
-        // the product details are needed before rendering the HTML
-        this.renderProductDetails();
-
-        // once the HTML is rendered, add a listener to the Add to Cart button
-        // Notice the .bind(this). This callback will not work if the bind(this) is missing. Review the readings from this week on 'this' to understand why.
-        document
-            .getElementById('addToCart')
-            .addEventListener('click', this.addProductToCart.bind(this));
-    }
-
-    addProductToCart() {
-      const productCart = getLocalStorage("so-cart") || [];
-      productCart.push(this.product);
-      setLocalStorage("so-cart", productCart);
-    }
-
-    renderProductDetails() {
-        productDetailsTemplate(this.product);
-    }
+renderProductDetails() {
+  document.querySelector('#productBrand').innerText = this.product.Brand.Name;
+  document.querySelector('#productName').innerText = this.product.NameWithoutBrand;
+  document.querySelector('#productImage').src = this.product.Image;
+  document.querySelector('#productImage').alt = this.product.Name;
+  document.querySelector('#productFinalPrice').innerText = `$${this.product.FinalPrice}`;
+  document.querySelector('#productColorName').innerText = this.product.Colors[0].ColorName;
+  document.querySelector('#productDescriptionHtmlSimple').innerHTML = this.product.DescriptionHtmlSimple;
 }
-
-function productDetailsTemplate(product) {
-    document.querySelector('h2').textContent = product.Brand.Name;
-    document.querySelector('h3').textContent = product.NameWithoutBrand;
-
-    const productImage = document.getElementById('productImage');
-    productImage.src = product.Image;
-    productImage.alt = product.NameWithoutBrand;
-
-    document.getElementById('productPrice').textContent = product.FinalPrice;
-    document.getElementById('productColor').textContent = product.Colors[0].ColorName;
-    document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple;
-
-    document.getElementById('addToCart').dataset.id = product.Id;
 }

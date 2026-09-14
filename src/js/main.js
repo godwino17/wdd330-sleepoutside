@@ -5,7 +5,6 @@ import Alert from "./Alert.mjs";
 const alert = new Alert();
 alert.init();
 
-
 const listElement = document.querySelector(".product-list");
 const dataSource = new ProductData("tents");
 
