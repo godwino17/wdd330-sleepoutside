@@ -26,14 +26,26 @@ export function setClick(selector, callback) {
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  return urlParams.get(param);
+  const product = urlParams.get(param);
+  return product;
 }
 
+<<<<<<< HEAD
 export function renderWithTemplate(template, parentElement, data, callback) {
     parentElement.insertAdjacentHTML("afterbegin", template);
     if (callback) {
       callback(data);
     }
+=======
+export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
+
+  const htmlStrings = list.map(templateFn);
+
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+>>>>>>> d875b05e55d661a36dc2a37b3a756c64cea795ac
 }
 
 export function alertMessage(message, scroll = true) {
@@ -65,19 +77,45 @@ export function alertMessage(message, scroll = true) {
   }, 4000);
 }
 
+<<<<<<< HEAD
+=======
+// 1
+export function renderWithTemplate(template, parentElement, data, callback) {
+
+  parentElement.innerHTML = template;
+  if (callback) {
+    callback(data);
+  }
+}
+
+// 2
+>>>>>>> d875b05e55d661a36dc2a37b3a756c64cea795ac
 export async function loadTemplate(path) {
   const res = await fetch(path);
   const template = await res.text();
   return template;
 }
 
+<<<<<<< HEAD
+=======
+// 3
+>>>>>>> d875b05e55d661a36dc2a37b3a756c64cea795ac
 export async function loadHeaderFooter() {
   const headerTemplate = await loadTemplate("../partials/header.html");
   const footerTemplate = await loadTemplate("../partials/footer.html");
 
+<<<<<<< HEAD
   const headerElement = document.querySelector("#main-header");
   const footerElement = document.querySelector("#main-footer");
 
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
+=======
+  const headerElement = document.querySelector('#main-header');
+  const footerElement = document.querySelector('#main-footer');
+
+  renderWithTemplate(headerTemplate, headerElement);
+  renderWithTemplate(footerTemplate, footerElement);
+
+>>>>>>> d875b05e55d661a36dc2a37b3a756c64cea795ac
 }
