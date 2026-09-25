@@ -1,7 +1,6 @@
 import { renderWithTemplate } from "./utils.mjs";
 
 function productCardTemplate(product) {
-    // Log each product to inspect missing properties in DevTools
     console.log('Rendering product card:', product);
 
     if (!product || !product.Id) {
@@ -25,23 +24,16 @@ export default class ProductList {
         this.dataSource = dataSource;
         this.listElement = listElement;
     }
-<<<<<<< HEAD
-        async init() {
-            const list = await this.dataSource.getData(this.category);
-            this.renderList(list);
-        }
 
-        renderList(list) {
-            renderWithTemplate(productCardTemplate, this.listElement, list);
-        }
-=======
     async init() {
-        const list = await this.dataSource.getData();
+        const list = await this.dataSource.getData(this.category);
         this.renderList(list);
->>>>>>> d875b05e55d661a36dc2a37b3a756c64cea795ac
     }
 
     renderList(list) {
-        renderListWithTemplate(productCardTemplate, this.listElement, list);
+        if (Array.isArray(list)) {
+            const htmlStrings = list.map(productCardTemplate);
+            this.listElement.innerHTML = htmlStrings.join('');
+        }
     }
 }

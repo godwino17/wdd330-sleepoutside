@@ -200,11 +200,18 @@ button {
 }
 
 .cart svg {
-  width: 25px;
+  width: 35px;
+  height: 35px;
+  display: block;
 }
 
 .cart:hover svg {
   fill: gray;
+}
+
+.cart a {
+  display: inline-block;
+  max-width: 40px;
 }
 
 /* End cart icon styles */
