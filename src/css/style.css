@@ -210,28 +210,9 @@ button {
   fill: gray;
 }
 
-<<<<<<< HEAD
 .cart a {
   display: inline-block;
   max-width: 40px;
-=======
-.cart-count {
-  position: absolute;
-  top: 0.3em;
-  right: -0.5em;
-  background-color: var(--primary-color, red);
-  color: white;
-  font-size: 0.7rem;
-  font-weight: bold;
-  line-height: 1;
-  min-width: 1.2em;
-  height: 1.2em;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.15em;
->>>>>>> 597e0440448b87bdbb58e21926d442993cb75086
 }
 
 /* End cart icon styles */

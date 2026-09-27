@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { getLocalStorage, loadHeaderFooter, alertMessage } from './utils.mjs';
-=======
-import { getLocalStorage, loadHeaderFooter, updateCartCount } from "./utils.mjs";
->>>>>>> 597e0440448b87bdbb58e21926d442993cb75086
 
 loadHeaderFooter();
 
@@ -59,9 +55,4 @@ function cartItemTemplate(item) {
 </li>`;
 }
 
-<<<<<<< HEAD
 renderCartContents();
-=======
-renderCartContents();
-updateCartCount();
->>>>>>> 597e0440448b87bdbb58e21926d442993cb75086
