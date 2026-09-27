@@ -94,6 +94,10 @@ export default class CheckoutProcess {
     try {
       const res = await externalServices.checkout(json);
       console.log(res);
+
+      localStorage.removeItem(this.key);
+
+      location.href = "success.html";
     } catch (err) {
       console.error(err);
     }
