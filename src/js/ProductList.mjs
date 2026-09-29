@@ -1,10 +1,15 @@
-import { renderListWithTemplate } from "./utils.mjs";
-
 function productCardTemplate(product) {
+    console.log('Rendering product card:', product);
+
+    if (!product || !product.Id) {
+        console.error('Invalid product structure detected:', product);
+        return '';
+    }
+
     return `<li class="product-card">
-    <a href="product_pages/?product=${product.Id}">
-      <img src="${product.Images.PrimaryMedium}" alt="Image of ${product.Name}">
-      <h2 class="card__brand">${product.Brand.Name}</h2>
+    <a href="../product_pages/index.html?product=${product.Id}">
+      <img src="${product.PrimaryMedium}" alt="Image of ${product.Name}">
+      <h2 class="card__brand">${product.Brand?.Name || ''}</h2>
       <h3 class="card__name">${product.Name}</h3>
       <p class="product-card__price">$${product.FinalPrice}</p>
     </a>
@@ -17,16 +22,17 @@ export default class ProductList {
         this.dataSource = dataSource;
         this.listElement = listElement;
     }
+
     async init() {
-<<<<<<< HEAD
+
         const list = await this.dataSource.getData(this.category);
-=======
-        const list = await this.dataSource.getData();
->>>>>>> origin/main
         this.renderList(list);
     }
 
     renderList(list) {
-        renderListWithTemplate(productCardTemplate, this.listElement, list);
+        if (Array.isArray(list)) {
+            const htmlStrings = list.map(productCardTemplate);
+            this.listElement.innerHTML = htmlStrings.join('');
+        }
     }
 }

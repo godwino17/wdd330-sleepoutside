@@ -1,15 +1,23 @@
-import ProductData from "./ProductData.mjs";
-import ProductList from "./ProductList.mjs";
-import { loadHeaderFooter, getParam } from "./utils.mjs";
+import ExternalServices from './ExternalServices.mjs';
+import ProductList from './ProductList.mjs';
+import Alert from './Alert.mjs';
+import { getParam, loadHeaderFooter } from './utils.mjs';
 
 loadHeaderFooter();
 
-const category = getParam("category") || "tents";
-const listElement = document.querySelector(".product-list");
-const dataSource = new ProductData();
+const alert = new Alert();
+alert.init();
+
+const category = getParam('category');
+
+const listElement = document.querySelector('.product-list');
+const dataSource = new ExternalServices();
 
 const productList = new ProductList(category, dataSource, listElement);
 productList.init();
 
-document.querySelector("#title-header").textContent =
-    `Top Products: ${category.charAt(0).toUpperCase() + category.slice(1)}`;
+const titleElement = document.querySelector('.title');
+if (titleElement && category) {
+  const formattedCategory = category.charAt(0).toUpperCase() + category.slice(1).replace('-', ' ');
+  titleElement.textContent = `Top Products: ${formattedCategory}`;
+}

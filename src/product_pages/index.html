@@ -4,40 +4,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sleep Outside | Product Card</title>
-
+  <title>Sleep Outside | Product Details</title>
   <link rel="stylesheet" href="../css/style.css" />
-
   <script src="../js/product.js" type="module"></script>
 </head>
 
 <body>
-  <header class="divider">
-    <div class="logo">
-      <img src="../public/images/noun_Tent_2517.svg" alt="tent image for logo" />
-      <a href="../index.html"> Sleep<span class="highlight">Outside</span></a>
-    </div>
-
-    <div class="cart">
-      <a href="../cart/">Cart<span class="cart-count">0</span></a>
-    </div>
-  </header>
+  <header class="divider" id="main-header"></header>
 
   <main class="divider">
     <section class="product-detail">
-      <h2></h2>
-      <h3 class="divider"></h3>
-      <img src="" alt="" id="productImage" class="divider" />
-      <p id="productPrice" class="product-card__price"></p>
-      <p id="productColor" class="product__color"></p>
-      <p id="productDesc" class="product__description"></p>
+      <h3 id="productBrand"></h3>
+      <h2 id="productName" class="divider"></h2>
+      <img id="productImage" class="divider" src="" alt="" />
+      <p id="productFinalPrice" class="product-card__price"></p>
+      <p id="productColorName" class="product__color"></p>
+      <p id="productDescriptionHtmlSimple" class="product__description"></p>
       <div class="product-detail__add">
-        <button id="addToCart" data-id="productId">Add to Cart</button>
+        <button id="addToCart" data-id="">Add to Cart</button>
       </div>
     </section>
   </main>
 
-  <footer>&copy;NOT a real business</footer>
+  <footer id="main-footer"></footer>
 </body>
 
 </html>

@@ -1,15 +1,19 @@
-import ProductData from "./ProductData.mjs";
-import ProductList from "./ProductList.mjs";
-import Alert from "./Alert.mjs";
-import { loadHeaderFooter, updateCartCount } from "./utils.mjs";
+import ExternalServices from './ExternalServices.mjs';
+import ProductList from './ProductList.mjs';
+import Alert from './Alert.mjs';
+import { loadHeaderFooter } from './utils.mjs';
 
-loadHeaderFooter();
+async function init() {
+  await loadHeaderFooter();
 
-const alert = new Alert();
-alert.init();
-const listElement = document.querySelector(".product-list");
-const dataSource = new ProductData("tents");
-const productList = new ProductList("tents", dataSource, listElement);
-productList.init();
+  const alert = new Alert();
+  alert.init();
 
-updateCartCount();
+  const listElement = document.querySelector('.product-list');
+  const dataSource = new ExternalServices('tents');
+
+  const productList = new ProductList('tents', dataSource, listElement);
+  productList.init();
+}
+
+init();
